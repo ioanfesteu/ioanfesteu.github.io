@@ -23,7 +23,7 @@ var hints = document.querySelector('.hints');
 //   console.log(v, i);
   // colorHTML += '<span style="background-color:' + v + ';"> ' + v + ' </span>';
 // });
-hints.innerHTML = 'Apasa/click pe suprafata ecranului iar la semnaulul sonor formuleaza comanda dorita. De exemplu: "Seteaza temperatura din living la 22 de grade"';
+hints.innerHTML = 'Apasa/click pe suprafata ecranului iar la semnalul sonor formuleaza comanda dorita. De exemplu: "Seteaza temperatura din living la 22 de grade"';
 // hints.innerHTML = 'Apasa';
 
 document.body.onclick = function() {
