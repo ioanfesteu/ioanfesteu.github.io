@@ -1,14 +1,8 @@
+const socket = io();
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
-// var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
-
-// var colors = [ 'aqua' , 'azure' , 'beige', 'bisque', 'black', 'blue', 'brown', 'chocolate', 'coral', 'crimson', 'cyan', 'fuchsia', 'ghostwhite', 'gold', 'goldenrod', 'gray', 'green', 'indigo', 'ivory', 'khaki', 'lavender', 'lime', 'linen', 'magenta', 'maroon', 'moccasin', 'navy', 'olive', 'orange', 'orchid', 'peru', 'pink', 'plum', 'purple', 'red', 'salmon', 'sienna', 'silver', 'snow', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'white', 'yellow'];
-// var grammar = '#JSGF V1.0; grammar colors; public <color> = ' + colors.join(' | ') + ' ;'
-
 var recognition = new SpeechRecognition();
-// var speechRecognitionList = new SpeechGrammarList();
-// speechRecognitionList.addFromString(grammar, 1);
-// recognition.grammars = speechRecognitionList;
+
 recognition.continuous = false;
 recognition.lang = 'ro-RO';
 recognition.interimResults = false;
@@ -18,17 +12,11 @@ var diagnostic = document.querySelector('.output');
 var bg = document.querySelector('html');
 var hints = document.querySelector('.hints');
 
-// var colorHTML= '';
-// colors.forEach(function(v, i, a){
-//   console.log(v, i);
-  // colorHTML += '<span style="background-color:' + v + ';"> ' + v + ' </span>';
-// });
 hints.innerHTML = 'Apasa/click pe suprafata ecranului iar la semnalul sonor formuleaza comanda dorita. De exemplu: "Seteaza temperatura din living la 22 de grade"';
-// hints.innerHTML = 'Apasa';
 
 document.body.onclick = function() {
   recognition.start();
-  console.log('Ready to receive a color command.');
+  console.log('Ready to receive a command.');
 }
 
 recognition.onresult = function(event) {
@@ -40,11 +28,14 @@ recognition.onresult = function(event) {
   // These also have getters so they can be accessed like arrays.
   // The second [0] returns the SpeechRecognitionAlternative at position 0.
   // We then return the transcript property of the SpeechRecognitionAlternative object
-  var color = event.results[0][0].transcript;
-  diagnostic.textContent = color + '.';
-  bg.style.backgroundColor = color;
-  console.log(color);
+  var text = event.results[0][0].transcript;
+  diagnostic.textContent = text + '.';
+  bg.style.backgroundColor = text;
+  console.log(text);
   console.log('Confidence: ' + event.results[0][0].confidence);
+  // sio.on('connect', () => {
+    socket.emit("message", event.results[0][0].transcript);
+  // });
 }
 
 recognition.onspeechend = function() {
