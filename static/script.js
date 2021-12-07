@@ -1,4 +1,4 @@
-const socket = io();
+// const socket = io();
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
 var recognition = new SpeechRecognition();
@@ -34,7 +34,7 @@ recognition.onresult = function(event) {
   console.log(text);
   console.log('Confidence: ' + event.results[0][0].confidence);
   // sio.on('connect', () => {
-    socket.emit("message", event.results[0][0].transcript);
+  //   socket.emit("message", event.results[0][0].transcript);
   // });
 }
 
