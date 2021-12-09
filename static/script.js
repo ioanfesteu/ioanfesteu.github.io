@@ -19,6 +19,8 @@ document.body.onclick = function() {
   console.log('Ready to receive a command.');
 }
 
+
+
 recognition.onresult = function(event) {
   // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
   // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
@@ -33,7 +35,8 @@ recognition.onresult = function(event) {
   bg.style.backgroundColor = text;
   console.log(text);
   console.log('Confidence: ' + event.results[0][0].confidence);
-  // sio.on('connect', () => {
+  readOutLoud(text);
+  // socket.on('connect', () => {
   //   socket.emit("message", event.results[0][0].transcript);
   // });
 }
@@ -48,4 +51,15 @@ recognition.onnomatch = function(event) {
 
 recognition.onerror = function(event) {
   diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
+}
+
+function readOutLoud(message) {
+  const speech = new SpeechSynthesisUtterance();
+  speech.text = message.toString();
+  speech.volume = 1;
+  speech.rate = 1;
+  speech.pitch = 1;
+  speech.lang = 'ro-RO';
+
+  window.speechSynthesis.speak(speech);
 }
